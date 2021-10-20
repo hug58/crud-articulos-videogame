@@ -79,7 +79,7 @@ func (art *ArticleRouter) DeleteHandler(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	response.JSON(w, r, http.StatusOK, response.Map{})
+	response.JSON(w, r, http.StatusOK, response.Map{"msg": "Delete Article!"})
 }
 
 /*
@@ -179,7 +179,7 @@ func (art *ArticleRouter) Routes() http.Handler {
 	r.Get("/{id}/", art.GetOneHandler) //DETAIL
 	r.Put("/{id}/", art.UpdateHandler) //UPDATE
 
-	r.Delete("/{id}'", art.DeleteHandler)          //DELETE
+	r.Delete("/{id}/", art.DeleteHandler)          //DELETE
 	r.Get("/user/{idUser}/", art.GetByUserHandler) //LIST ARTICLES BY ID USER
 	return r
 }

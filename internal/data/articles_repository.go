@@ -60,7 +60,7 @@ func (pr *ArticlesRepository) GetAll(ctx context.Context) ([]article.ArticleGame
 
 func (pr *ArticlesRepository) GetByUser(ctx context.Context, userID uint) ([]article.ArticleGame, error) {
 	q := `
-    SELECT id, name, price description, user_id, created_at, updated_at
+    SELECT id, name, price, description, user_id, created_at, updated_at
         FROM articles
         WHERE user_id = $1;
     `
