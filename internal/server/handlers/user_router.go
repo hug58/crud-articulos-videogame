@@ -50,6 +50,21 @@ func (ur *UserRouter) CreateHandler(w http.ResponseWriter, r *http.Request) {
 func (ur *UserRouter) GetAllHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
+	username := r.URL.Query().Get("username")
+
+	if username != "" {
+		user, err := ur.Repository.GetByUsername(ctx, username)
+
+		if err != nil {
+			response.HTTPError(w, r, http.StatusNotFound, err.Error())
+			return
+		}
+
+		response.JSON(w, r, http.StatusOK, response.Map{"user": user})
+		return
+
+	}
+
 	users, err := ur.Repository.GetAll(ctx)
 	if err != nil {
 		response.HTTPError(w, r, http.StatusNotFound, err.Error())
@@ -60,7 +75,7 @@ func (ur *UserRouter) GetAllHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 /*
-	OBTENER UN USUARIO
+	GET USER BY ID
 */
 
 func (ur *UserRouter) GetOneHandler(w http.ResponseWriter, r *http.Request) {
