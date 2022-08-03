@@ -16,14 +16,17 @@ type Data struct {
 }
 
 func initDB() {
+	log.Println("Initializing database connection pool.")
 	db, err := getConnection()
 	if err != nil {
+		log.Println("Error connecting to database: ", err)
 		log.Panic(err)
 	}
 
 	err = MakeMigration(db)
 	if err != nil {
-		log.Panic(err)
+		log.Println("Error creating database: ", err)
+		//log.Panic(err)
 	}
 
 	data = &Data{

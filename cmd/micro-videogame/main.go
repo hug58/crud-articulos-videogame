@@ -22,13 +22,14 @@ func main() {
 	//port := os.Getenv("PORT")
 	serv, err := server.New(port)
 	if err != nil {
+		log.Println("Error creating server: ", err)
 		log.Fatal(err)
 	}
 
 	//conexion a la base de datos
 	d := data.New()
 	if err := d.DB.Ping(); err != nil {
-		log.Fatal(err)
+		log.Println("Error connecting to database: ", err)
 	}
 
 	go serv.Start()
