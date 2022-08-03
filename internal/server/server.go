@@ -31,6 +31,17 @@ func New(port string) (*Server, error) {
 		WriteTimeout: 10 * time.Second,
 	}
 
+	//hello with name
+	r.Get("/hello/{name}", func(w http.ResponseWriter, r *http.Request) {
+		name := chi.URLParam(r, "name")
+		fmt.Fprintf(w, "Hello %s", name)
+	})
+
+	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
+		//welcome
+		fmt.Fprintf(w, "<h1> Welcome to the home page! </h1>")
+	})
+
 	server := Server{server: serv}
 	return &server, nil
 }

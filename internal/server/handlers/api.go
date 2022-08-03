@@ -24,10 +24,5 @@ func New() http.Handler {
 	r.Mount("/users", ur.Routes())
 	r.Mount("/articles-video-game", art.Routes())
 
-	//hello
-	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Hello World"))
-	})
-
 	return r
 }
